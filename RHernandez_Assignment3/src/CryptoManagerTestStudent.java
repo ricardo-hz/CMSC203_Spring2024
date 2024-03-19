@@ -52,10 +52,7 @@ class CryptoManagerTestStudent {
 	@Test
 	public void testBellasoEncryption() {
 		assertEquals("The selected string is not in bounds, Try again.",CryptoManager.bellasoEncryption("INVALID|STRING", "BUT VALID KEY"));
-		/*
-		 * WHY DOES THE BELOW TEST CASE NOT WORK???? I think it has something to do with % symbols
-		 * assertEquals("%MP^ 9+Q(!O/%(2TS",CryptoManager.bellasoEncryption("REALLY LONG STRING", "SHORT KEY"));
-		 */
+		assertEquals("%MP^ 9+Q(!O/%(2TS ",CryptoManager.bellasoEncryption("REALLY LONG STRING", "SHORT KEY"));
 		assertEquals("^M(2!5^Y9UM/W,4PS]XL",CryptoManager.bellasoEncryption("KEY MUST BE EXTENDED", "SHORT KEY"));
 		assertEquals("U]#2+N&(3U2U]U",CryptoManager.bellasoEncryption("SHORTER STRING", "BUT WITH A LONGER KEY"));
 	}
