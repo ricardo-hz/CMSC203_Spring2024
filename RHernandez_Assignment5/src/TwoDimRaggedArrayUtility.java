@@ -42,9 +42,9 @@ public class TwoDimRaggedArrayUtility {
 		data = new double [numRows][];
 		
 		for(int row = 0; row < data.length; row++) {
-			//Split the array into tokens
+			//Split the line into tokens
 			nextLineTokenized = fillArray.nextLine().split(" ");
-			//Determine number of columns using tokenized array
+			//Determine number of columns using tokenized line
 			data[row] = new double[nextLineTokenized.length];
 			//Fill the array, converting Strings to doubles in the process
 			for(int col = 0; col < data[row].length; col++) {
