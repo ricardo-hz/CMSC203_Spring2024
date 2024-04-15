@@ -163,7 +163,7 @@ public class TwoDimRaggedArrayUtility {
 		return highestInRow;
 	}
 	
-	public static double getHighestInRowIndex(double[][] data, int row) {
+	public static int getHighestInRowIndex(double[][] data, int row) {
 		//Assume that the index of the highest col in row is the first index (column 0)
 		int highestInRowIndex = 0;
 		/*
@@ -197,7 +197,7 @@ public class TwoDimRaggedArrayUtility {
 		return lowestInRow;
 	}
 	
-	public static double getLowestInRowIndex(double[][] data, int row) {
+	public static int getLowestInRowIndex(double[][] data, int row) {
 		//Assume that the index of the lowest col in row is the first index (column 0)
 		int lowestInRowIndex = 0;
 		/*
@@ -271,7 +271,7 @@ public class TwoDimRaggedArrayUtility {
 		return lowestInColumn;
 	}
 	
-	public static double getLowestInColumnIndex(double[][] data, int col) {
+	public static int getLowestInColumnIndex(double[][] data, int col) {
 		//Assume that the index of the lowest row in col is the first index (row 0)
 		int lowestInColumnIndex = 0;
 		/*
