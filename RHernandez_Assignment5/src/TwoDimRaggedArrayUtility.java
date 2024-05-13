@@ -13,72 +13,33 @@
  * to any student.
    Print your Name here: Ricardo Hernandez
 */
-import java.io.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class TwoDimRaggedArrayUtility {
+public final class TwoDimRaggedArrayUtility {
+	
 	/**
-	 * Reads from a file and returns a ragged array of doubles The maximum rows is 10 and the maximum columns for each row
-	 *  is 10 Each row in the file is separated by a new line Each element in the row is separated by a space
-	 * @param file the file to read from
-	 * @return a two dimensional ragged (depending on data) array of doubles if the file is not empty.
-	 * @throws FileNotFoundException
+	 * Returns the average of the elements in the two dimensional array
+	 * @param data the array to be searched
+	 * @return The avg of the elements in the two dimensional array
 	 */
-	public static double[][] readFile(File file) throws FileNotFoundException {
-		Scanner scan = new Scanner(file);
-		String[] nextLineTokenized;
-		double[][] data;
-		
-		//Find number of rows
-		int numRows = 0;
-		while(scan.hasNextLine()) {
-			scan.nextLine();
-			numRows++;
-		}
-		
-		//Close scanner after num rows found
-		scan.close();
-		
-		//Create array based on number of rows
-		data = new double [numRows][];
-		
-		//Reopen scanner, resetting read position
-		scan = new Scanner(file);
-		
-		for(int row = 0; row < data.length; row++) {
-			//Split the line into tokens
-			nextLineTokenized = scan.nextLine().split(" ");
-			//Determine number of columns using tokenized line
-			data[row] = new double[nextLineTokenized.length];
-			//Fill the array, converting Strings to doubles in the process
-			for(int col = 0; col < data[row].length; col++) {
-				data[row][col] = Double.parseDouble(nextLineTokenized[col]);
-			}
-		}
-		
-		scan.close();
-		return data;	
-	}
-	/**
-	 * Writes the ragged array of doubles into the file. Each row is on a separate line within the file and each double is separated by a space.
-	 * @param data the dwo dimensional ragged array of doubles
-	 * @param outputFile the file to write to
-	 * @throws IOException if outputFile is not valid
-	 */
-	public static void writeToFile(double[][] data, File outputFile) throws IOException {
-		//Used to write to file
-		PrintWriter outputFilePrintWriter = new PrintWriter(outputFile);
-		//Write each row to the file, adding a space after each element
+	public static double getAverage(double[][] data) {
+		int numElements = 0;
+		double total = 0;
 		for(int row = 0; row < data.length; row++) {
 			for(int col = 0; col < data[row].length; col++) {
-				outputFilePrintWriter.print(data[row][col] + " ");
+				total += data[row][col];
+				numElements++;
 			}
-			//Add a new line after each row
-			outputFilePrintWriter.println();
 		}
-		outputFilePrintWriter.close();
+		return total/numElements;
 	}
 	
+
 	/**
 	 * Returns the total of all elements of the two dimensional array
 	 * @param data the two dimensional array getting total of
@@ -94,24 +55,6 @@ public class TwoDimRaggedArrayUtility {
 			}
 		}
 		return total;
-	}
-	
-	/**
-	 * Returns the average of the elements in the two dimensional array
-	 * @param data the two dimensional array getting the average of
-	 * @return the average of the elements in the two dimensional array (total of elements/number of elements)
-	 */
-	public static double getAverage(double[][] data) {
-		double total = getTotal(data);
-		//Determine number of elements in array
-		int numElements = 0;
-		for(int row = 0; row < data.length; row++) {
-			for(int col = 0; col < data[row].length; col++) {
-				numElements++;
-			}
-		}
-		//Return average using formula sum of all numbers/number of numbers
-		return (total/numElements);
 	}
 	
 	/**
@@ -149,6 +92,12 @@ public class TwoDimRaggedArrayUtility {
 		return total;
 	}
 	
+	/**
+	 * Returns the largest element of the selected row in the two dimensional array index 0 refers to the first row.
+	 * @param data the two dimensional array
+	 * @param row the index of the row to be searched
+	 * @return the highest column value in the index given
+	 */
 	public static double getHighestInRow(double[][] data, int row) {
 		/*
 		 * Assume the highest number is the smallest possible double value instead of 0. This variable is
@@ -166,6 +115,12 @@ public class TwoDimRaggedArrayUtility {
 		return highestInRow;
 	}
 	
+	/**
+	 * Returns the largest element of the selected row in the two dimensional array index 0 refers to the first row.
+	 * @param data the array to be searched
+	 * @param row the index of the row to be searched
+	 * @return the index of the highest column within the specified row
+	 */
 	public static int getHighestInRowIndex(double[][] data, int row) {
 		//Assume that the index of the highest col in row is the first index (column 0)
 		int highestInRowIndex = 0;
@@ -181,6 +136,13 @@ public class TwoDimRaggedArrayUtility {
 		return highestInRowIndex;
 	}
 	
+	/**
+	 * Returns the smallest element of the selected row in the two dimensional array index 0 refers to the first 
+	 * row.
+	 * @param data the array to be searched
+	 * @param row the row of the array to be searched
+	 * @return the lowest value in the specified row
+	 */
 	public static double getLowestInRow(double[][] data, int row) {
 		/*
 		 * Assume the lowest number is the biggest possible double value instead of some obscure value like 9999999. 
@@ -200,6 +162,13 @@ public class TwoDimRaggedArrayUtility {
 		return lowestInRow;
 	}
 	
+	/**
+	 * Returns the index of the smallest element of the selected row in the two dimensional array index 0 
+	 * refers to the first row.
+	 * @param data the array to be searched
+	 * @param row the row index to be searched
+	 * @return the index of the lowest value in the specified row index
+	 */
 	public static int getLowestInRowIndex(double[][] data, int row) {
 		//Assume that the index of the lowest col in row is the first index (column 0)
 		int lowestInRowIndex = 0;
@@ -215,6 +184,14 @@ public class TwoDimRaggedArrayUtility {
 		return lowestInRowIndex;
 	}
 	
+	/**
+	 * Returns the largest element of the selected column in the two dimensional array index 0 refers to the 
+	 * first column. If a row in the two dimensional array doesn't have this column index, it is not an error, 
+	 * it doesn't participate in this method.
+	 * @param data the array to be searched
+	 * @param col the column index of the array to be searched
+	 * @return the highest value in the specified column
+	 */
 	public static double getHighestInColumn(double[][] data, int col) {
 		/*
 		 * Assume the highest number is the smallest possible double value instead of 0. This variable is
@@ -236,6 +213,14 @@ public class TwoDimRaggedArrayUtility {
 		return highestInColumn;
 	}
 
+	/**
+	 * Returns index of the largest element of the selected column in the two dimensional array index 0 refers 
+	 * to the first column. If a row in the two dimensional array doesn't have this column index, it is 
+	 * not an error, it doesn't participate in this method.
+	 * @param data the array to be searched
+	 * @param col the column of the array to be searched
+	 * @return the index of the highest value in the column
+	 */
 	public static int getHighestInColumnIndex(double[][] data, int col) {
 		//Assume that the index of the highest row in col is the first index (row 0)
 		int highestInColumnIndex = 0;
@@ -253,6 +238,14 @@ public class TwoDimRaggedArrayUtility {
 		return highestInColumnIndex;
 	}
 	
+	/**
+	 * Returns the smallest element of the selected column in the two dimensional array index 0 refers to the 
+	 * first column. If a row in the two dimensional array doesn't have this column index, it is not an error, 
+	 * it doesn't participate in this method.
+	 * @param data the array to search
+	 * @param col the column to search
+	 * @return the lowest value in the specified column
+	 */
 	public static double getLowestInColumn(double[][] data, int col) {
 		/*
 		 * Assume the lowest number is the biggest possible double value instead of some obscure value like 9999999. 
@@ -274,6 +267,14 @@ public class TwoDimRaggedArrayUtility {
 		return lowestInColumn;
 	}
 	
+	/**
+	 * Returns the index of the smallest element of the selected column in the two dimensional array index 0 
+	 * refers to the first column. If a row in the two dimensional array doesn't have this column index, 
+	 * it is not an error, it doesn't participate in this method.
+	 * @param data the array to be searched
+	 * @param col the column index to be searched
+	 * @return the index of the lowest value in the specified column index
+	 */
 	public static int getLowestInColumnIndex(double[][] data, int col) {
 		//Assume that the index of the lowest row in col is the first index (row 0)
 		int lowestInColumnIndex = 0;
@@ -291,6 +292,11 @@ public class TwoDimRaggedArrayUtility {
 		return lowestInColumnIndex;
 	}
 	
+	/**
+	 * Returns the largest element in the two dimensional array
+	 * @param data the array to be search
+	 * @return the largest element in the data array
+	 */
 	public static double getHighestInArray(double[][] data) {
 		/*
 		 * Assume the highest number is the smallest possible double value instead of 0. This variable is
@@ -312,6 +318,11 @@ public class TwoDimRaggedArrayUtility {
 		return highestInArray;
 	}
 	
+	/**
+	 * Returns the smallest element in the two dimensional array
+	 * @param data the array to be search
+	 * @return the smallest element in the data array
+	 */
 	public static double getLowestInArray(double[][] data) {
 		/*
 		 * Assume the lowest number is the biggest possible double value instead of some obscure value like 9999999. 
@@ -331,5 +342,67 @@ public class TwoDimRaggedArrayUtility {
 			}
 		}
 		return lowestInArray;
+	}
+	
+	/**
+	 * Reads from a file and returns a ragged array of doubles The maximum rows is 10 and the maximum columns for each row
+	 *  is 10 Each row in the file is separated by a new line Each element in the row is separated by a space
+	 * @param file the file to read from
+	 * @return a two dimensional ragged (depending on data) array of doubles if the file is not empty.
+	 * @throws FileNotFoundException
+	 */
+	public static double[][] readFile(File file) throws FileNotFoundException{
+		double[][] array = new double[10][10];
+		try(Scanner scan1 = new Scanner(file);
+				Scanner scan2 = new Scanner(file)){
+		String[] tokenizedLine;
+		
+		
+		int numLines = 0;
+		while(scan1.hasNextLine()){
+			numLines++;
+			scan1.nextLine();
+		}
+		array = new double[numLines][];
+		
+		while(scan2.hasNextLine()) {
+			for(int row = 0; row < numLines; row++) {
+				tokenizedLine = scan2.nextLine().split(" ");
+				array[row] = new double[tokenizedLine.length];
+				
+				for(int col = 0; col < array[row].length; col++) {
+					array[row][col] = Double.parseDouble(tokenizedLine[col]);
+				}
+				
+				
+			}
+			
+		}
+		
+		}catch(FileNotFoundException fnfe) {
+			System.out.println("The file does not exist!");
+		}
+		return array;
+	}
+		
+	/**
+	 * Writes the ragged array of doubles into the file. Each row is on a separate line within the file and each double is separated by a space.
+	 * @param data the two dimensional ragged array of doubles
+	 * @param outputFile the file to write to
+	 * @throws IOException if outputFile is not valid
+	 */
+	public static void writeToFile(double[][] data, File outputFile) throws FileNotFoundException {
+		//Write data in each row. Once finished with row, move to next
+		try(PrintWriter pw = new PrintWriter(outputFile)){
+			for(int row = 0; row < data.length; row++) {
+				for(int col = 0; col < data[row].length; col++) {
+					pw.append(data[row][col] + " ");
+				}
+				pw.append('\n');
+			}
+		}
+		catch(FileNotFoundException fnfe) {
+			System.out.println("The file could not be found.");
+		}
 	}
 }

@@ -43,15 +43,14 @@ class TwoDimRaggedArrayUtilityTestStudent {
 	@Test
 	void testReadFile() throws FileNotFoundException {
 		//LESSON LEARNED: Getting the current directory
-		String testFilePath = (System.getProperty("user.dir") + "\\testdocuments\\testdoc.txt");
+		String testFilePath = (System.getProperty("user.dir") + "\\src\\dataSet1.txt");
 		File newFile = new File(testFilePath);
 		double[][] array1 = TwoDimRaggedArrayUtility.readFile(newFile);
 		double[][] array2 = 
 			{
-					{817.68,156.58,-317.90,1154.64},
-					{547.51,128.46,-490.80,-252.14,453.46,-192.42},
-					{543.60,-303.62,111.27,425.89,1161.93},
-					{355.49,-409.87,-12.07,458.19,-497.16,796.18}
+					{1,2,3},
+					{4,5},
+					{6,7,8}
 			};
 		boolean equal = true;
 		
@@ -74,7 +73,7 @@ class TwoDimRaggedArrayUtilityTestStudent {
 	//Test writeToFile
 	@Test
 	void testWriteToFile() throws IOException {
-		File file = new File(System.getProperty("user.dir") + "\\testdocuments\\testdocwriteto.txt");
+		File file = new File(System.getProperty("user.dir") + "\\src\\testdocwriteto.txt");
 		TwoDimRaggedArrayUtility.writeToFile(array, file);
 		double[][] array2 = TwoDimRaggedArrayUtility.readFile(file);
 		
